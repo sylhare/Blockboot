@@ -1,0 +1,32 @@
+plugins {
+    id 'org.springframework.boot' version '2.5.0'
+    id 'io.spring.dependency-management' version '1.0.11.RELEASE'
+    id 'java'
+}
+
+allprojects {
+    repositories {
+        mavenCentral()
+        maven { url 'https://jitpack.io' } // For libdohj
+    }
+}
+
+group = 'com.github'
+version = '0.0.1-SNAPSHOT'
+sourceCompatibility = '11'
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    implementation 'org.springframework.boot:spring-boot-starter-web'
+    implementation 'com.github.dogecoin:libdohj:0.15.9'
+    implementation("com.google.guava:guava:30.1.1-jre") // Necessary for bitcoinj
+    testImplementation 'org.springframework.boot:spring-boot-starter-test'
+    testImplementation group: 'org.hamcrest', name: 'hamcrest-core', version: '2.2'
+}
+
+test {
+    useJUnitPlatform()
+}
