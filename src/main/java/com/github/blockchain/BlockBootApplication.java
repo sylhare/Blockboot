@@ -4,9 +4,9 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class BlockbootApplication {
+public class BlockBootApplication {
 
     public static void main(String[] args) {
-        SpringApplication.run(BlockbootApplication.class, args);
+        SpringApplication.run(BlockBootApplication.class, args);
     }
 }
