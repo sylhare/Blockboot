@@ -11,7 +11,7 @@ import com.github.blockchain.controller.models.BlockStatus;
 @Service
 public class BlockchainService {
 
-    private static final Long DEFAULT_AMOUNT = 1000L;
+    private static final String DEFAULT_AMOUNT = "1000";
 
     @Autowired
     private CoinService coinService;

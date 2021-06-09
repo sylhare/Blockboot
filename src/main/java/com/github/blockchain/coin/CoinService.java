@@ -6,5 +6,5 @@ import com.github.blockchain.domain.TransactionStatus;
 public interface CoinService {
     TransactionStatus read(String publicAddress);
 
-    void write(BlockTransaction blockTransaction, long amount) throws Exception;
+    void write(BlockTransaction blockTransaction, String amount) throws Exception;
 }

@@ -14,7 +14,7 @@ public class MockCoinService implements CoinService {
     }
 
     @Override
-    public void write(BlockTransaction blockTransaction, long amount) throws Exception {
+    public void write(BlockTransaction blockTransaction, String amount) throws Exception {
 
     }
 }
