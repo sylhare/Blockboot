@@ -1,5 +1,9 @@
 package com.github.blockchain.coin.bitcoin;
 
+import java.util.Objects;
+
+import javax.annotation.Nonnull;
+
 import org.bitcoinj.core.Address;
 import org.bitcoinj.core.NetworkParameters;
 import org.bitcoinj.core.SegwitAddress;
@@ -13,7 +17,8 @@ public class BitcoinConfiguration {
 
     public static Logger LOG = LoggerFactory.getLogger(BitcoinConfiguration.class.getSimpleName());
 
-    final static NetworkParameters networkParameters = NetworkParameters.fromID(NetworkParameters.ID_TESTNET);
+    @Nonnull
+    final static NetworkParameters networkParameters = Objects.requireNonNull(NetworkParameters.fromID(NetworkParameters.ID_TESTNET));
     final static Script.ScriptType scriptType = Script.ScriptType.P2WPKH;
 
     public static Address toAddress(String address) {

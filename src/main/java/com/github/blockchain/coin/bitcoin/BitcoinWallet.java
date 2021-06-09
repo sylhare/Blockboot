@@ -4,11 +4,15 @@ import static com.github.blockchain.coin.bitcoin.BitcoinConfiguration.LOG;
 import static com.github.blockchain.coin.bitcoin.BitcoinConfiguration.networkParameters;
 import static com.github.blockchain.coin.bitcoin.BitcoinConfiguration.scriptType;
 
+import java.io.File;
 import java.util.Objects;
+import java.util.concurrent.TimeUnit;
 
 import org.bitcoinj.core.BlockChain;
 import org.bitcoinj.core.PeerGroup;
+import org.bitcoinj.net.discovery.DnsDiscovery;
 import org.bitcoinj.store.MemoryBlockStore;
+import org.bitcoinj.store.SPVBlockStore;
 import org.bitcoinj.wallet.DeterministicSeed;
 import org.bitcoinj.wallet.Wallet;
 import org.springframework.stereotype.Component;
@@ -19,12 +23,26 @@ import com.google.common.base.Joiner;
 public class BitcoinWallet {
 
     public static Wallet createWallet() {
-        return Wallet.createDeterministic(networkParameters, scriptType);
+        Wallet wallet = Wallet.createDeterministic(networkParameters, scriptType);
+        wallet.autosaveToFile(new File("src/main/resources/file").getAbsoluteFile(), 1000L, TimeUnit.SECONDS, null);
+        return wallet;
     }
 
     public static BlockChain createBlockchain(Wallet wallet) {
         try {
-            final MemoryBlockStore blockStore = new MemoryBlockStore(Objects.requireNonNull(networkParameters));
+            MemoryBlockStore blockStore = new MemoryBlockStore(networkParameters);
+            return new BlockChain(networkParameters, wallet, blockStore);
+        } catch (Exception e) {
+            LOG.warn("Could not create blockchain", e);
+            return null;
+        }
+    }
+
+    public static BlockChain createSPVBlockChain(Wallet wallet) {
+        File chainFile = new File("src/main/resources/blockchain.spvchain").getAbsoluteFile();
+
+        try {
+            SPVBlockStore blockStore = new SPVBlockStore(networkParameters, chainFile);
             return new BlockChain(networkParameters, wallet, blockStore);
         } catch (Exception e) {
             LOG.warn("Could not create blockchain", e);
@@ -33,8 +51,9 @@ public class BitcoinWallet {
     }
 
     public static PeerGroup createPeerGroup(BlockChain blockChain, Wallet wallet) {
-        PeerGroup peerGroup =  new PeerGroup(networkParameters, blockChain);
+        PeerGroup peerGroup = new PeerGroup(networkParameters, blockChain);
         peerGroup.addWallet(wallet);
+        peerGroup.addPeerDiscovery(new DnsDiscovery(networkParameters));
         return peerGroup;
     }
 
