@@ -5,6 +5,8 @@ import static com.github.blockchain.coin.utility.BitcoinConfiguration.scriptType
 
 import java.util.Objects;
 
+import org.bitcoinj.core.BlockChain;
+import org.bitcoinj.store.MemoryBlockStore;
 import org.bitcoinj.wallet.DeterministicSeed;
 import org.bitcoinj.wallet.Wallet;
 import org.springframework.stereotype.Component;
@@ -16,6 +18,16 @@ public class BitcoinWallet {
 
     public static Wallet createWallet() {
         return Wallet.createDeterministic(networkParameters, scriptType);
+    }
+
+    public static BlockChain createBlockchain(Wallet wallet) {
+        try {
+            final MemoryBlockStore blockStore = new MemoryBlockStore(Objects.requireNonNull(networkParameters));
+            return new BlockChain(networkParameters, wallet, blockStore);
+        } catch (Exception e) {
+            System.out.println(String.format("Could not create blockchain {}", e));
+            return null;
+        }
     }
 
     public static DeterministicSeed walletSeed(Wallet wallet) {
