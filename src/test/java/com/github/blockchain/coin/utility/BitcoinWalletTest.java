@@ -1,14 +1,17 @@
 package com.github.blockchain.coin.utility;
 
-import static com.github.blockchain.coin.utility.BitcoinConfiguration.networkParameters;
+import static com.github.blockchain.coin.utility.BitcoinConfiguration.scriptType;
 import static com.github.blockchain.coin.utility.BitcoinWallet.createWallet;
 import static com.github.blockchain.coin.utility.BitcoinWallet.walletFromSeed;
 import static com.github.blockchain.coin.utility.BitcoinWallet.walletSeed;
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
 
 import java.util.Objects;
 
-import org.bitcoinj.script.Script;
+import org.bitcoinj.core.Address;
+import org.bitcoinj.core.ECKey;
+import org.bitcoinj.core.LegacyAddress;
 import org.bitcoinj.wallet.DeterministicSeed;
 import org.bitcoinj.wallet.UnreadableWalletException;
 import org.bitcoinj.wallet.Wallet;
@@ -38,4 +41,15 @@ class BitcoinWalletTest {
         assertEquals(wallet.getKeyChainSeed(), restoredWallet.getKeyChainSeed());
     }
 
+    @Test
+    public void addressTests() {
+        Wallet wallet = createWallet();
+        Address receiveAddress = wallet.currentReceiveAddress();
+        ECKey receivedECKey = wallet.currentReceiveKey();
+        Address receiveNewAddress = wallet.freshReceiveAddress();
+
+        assertEquals(receiveAddress.getParameters(), wallet.getParams());
+        assertEquals(receiveAddress, Address.fromKey(wallet.getParams(), receivedECKey, scriptType));
+        assertNotEquals(receiveNewAddress, receiveAddress);
+    }
 }

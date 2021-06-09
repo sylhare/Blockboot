@@ -10,6 +10,7 @@ import org.springframework.context.annotation.Configuration;
 public class BitcoinConfiguration {
 
     public static Logger LOG = LoggerFactory.getLogger(BitcoinConfiguration.class.getSimpleName());
+
     final static NetworkParameters networkParameters = NetworkParameters.fromID(NetworkParameters.ID_TESTNET);
     final static Script.ScriptType scriptType = Script.ScriptType.P2WPKH;
 }

@@ -7,6 +7,7 @@ import static com.github.blockchain.coin.utility.BitcoinConfiguration.scriptType
 import java.util.Objects;
 
 import org.bitcoinj.core.BlockChain;
+import org.bitcoinj.core.PeerGroup;
 import org.bitcoinj.store.MemoryBlockStore;
 import org.bitcoinj.wallet.DeterministicSeed;
 import org.bitcoinj.wallet.Wallet;
@@ -29,6 +30,12 @@ public class BitcoinWallet {
             LOG.warn("Could not create blockchain", e);
             return null;
         }
+    }
+
+    public static PeerGroup createPeerGroup(BlockChain blockChain, Wallet wallet) {
+        PeerGroup peerGroup =  new PeerGroup(networkParameters, blockChain);
+        peerGroup.addWallet(wallet);
+        return peerGroup;
     }
 
     public static DeterministicSeed walletSeed(Wallet wallet) {
