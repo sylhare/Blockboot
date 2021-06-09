@@ -11,6 +11,7 @@ import javax.annotation.PostConstruct;
 
 import org.bitcoinj.core.Base58;
 import org.bitcoinj.core.BlockChain;
+import org.bitcoinj.core.Coin;
 import org.bitcoinj.core.ECKey;
 import org.bitcoinj.core.PeerGroup;
 import org.bitcoinj.wallet.Wallet;
@@ -28,7 +29,7 @@ public class BitcoinService implements CoinService {
     @Value("${blockboot.private.key:unknown}")
     private String privateWalletKey;
 
-    private Wallet wallet;
+    private final Wallet wallet= createWallet();
     private BlockChain blockChain;
     private PeerGroup peerGroup;
 
@@ -36,7 +37,6 @@ public class BitcoinService implements CoinService {
     private void setup() {
         if (!Objects.equals(privateWalletKey, "unknown")) {
             LOG.info("Creating wallet, blockChain and peerGroup");
-            wallet = createWallet();
             wallet.importKey(ECKey.fromPrivate(Base58.decodeToBigInteger(privateWalletKey)));
             blockChain = createBlockchain(wallet);
             peerGroup = createPeerGroup(blockChain, wallet);
@@ -46,6 +46,12 @@ public class BitcoinService implements CoinService {
     private void start() {
         LOG.info("Starting peerGroup");
         peerGroup.startAsync();
+    }
+
+    Coin getBalance() {
+        Coin balance = wallet.getBalance();
+        LOG.info("Balance is {}", balance.toFriendlyString());
+        return balance;
     }
 
     @Override
