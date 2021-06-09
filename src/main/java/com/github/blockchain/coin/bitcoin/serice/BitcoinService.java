@@ -1,9 +1,9 @@
-package com.github.blockchain.coin;
+package com.github.blockchain.coin.bitcoin.serice;
 
-import static com.github.blockchain.coin.utility.BitcoinConfiguration.LOG;
-import static com.github.blockchain.coin.utility.BitcoinWallet.createBlockchain;
-import static com.github.blockchain.coin.utility.BitcoinWallet.createPeerGroup;
-import static com.github.blockchain.coin.utility.BitcoinWallet.createWallet;
+import static com.github.blockchain.coin.bitcoin.BitcoinConfiguration.LOG;
+import static com.github.blockchain.coin.bitcoin.BitcoinWallet.createBlockchain;
+import static com.github.blockchain.coin.bitcoin.BitcoinWallet.createPeerGroup;
+import static com.github.blockchain.coin.bitcoin.BitcoinWallet.createWallet;
 
 import java.util.Objects;
 
@@ -19,6 +19,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Service;
 
+import com.github.blockchain.coin.CoinService;
 import com.github.blockchain.domain.BlockTransaction;
 import com.github.blockchain.domain.TransactionStatus;
 
@@ -48,7 +49,7 @@ public class BitcoinService implements CoinService {
         peerGroup.startAsync();
     }
 
-    Coin getBalance() {
+    public Coin getBalance() {
         Coin balance = wallet.getBalance();
         LOG.info("Balance is {}", balance.toFriendlyString());
         return balance;

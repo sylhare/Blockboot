@@ -1,6 +1,4 @@
-package com.github.blockchain.coin.utility;
-
-import java.util.Objects;
+package com.github.blockchain.coin.bitcoin;
 
 import org.bitcoinj.core.Address;
 import org.bitcoinj.core.NetworkParameters;

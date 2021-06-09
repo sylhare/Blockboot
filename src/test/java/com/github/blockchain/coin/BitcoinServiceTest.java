@@ -9,6 +9,8 @@ import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMock
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.ActiveProfiles;
 
+import com.github.blockchain.coin.bitcoin.serice.BitcoinService;
+
 @SpringBootTest
 @ActiveProfiles("bitcoin")
 @AutoConfigureMockMvc

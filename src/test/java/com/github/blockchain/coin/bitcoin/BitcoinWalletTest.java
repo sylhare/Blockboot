@@ -1,9 +1,9 @@
-package com.github.blockchain.coin.utility;
+package com.github.blockchain.coin.bitcoin;
 
-import static com.github.blockchain.coin.utility.BitcoinConfiguration.scriptType;
-import static com.github.blockchain.coin.utility.BitcoinWallet.createWallet;
-import static com.github.blockchain.coin.utility.BitcoinWallet.walletFromSeed;
-import static com.github.blockchain.coin.utility.BitcoinWallet.walletSeed;
+import static com.github.blockchain.coin.bitcoin.BitcoinConfiguration.scriptType;
+import static com.github.blockchain.coin.bitcoin.BitcoinWallet.createWallet;
+import static com.github.blockchain.coin.bitcoin.BitcoinWallet.walletFromSeed;
+import static com.github.blockchain.coin.bitcoin.BitcoinWallet.walletSeed;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
 
@@ -11,7 +11,6 @@ import java.util.Objects;
 
 import org.bitcoinj.core.Address;
 import org.bitcoinj.core.ECKey;
-import org.bitcoinj.core.LegacyAddress;
 import org.bitcoinj.wallet.DeterministicSeed;
 import org.bitcoinj.wallet.UnreadableWalletException;
 import org.bitcoinj.wallet.Wallet;

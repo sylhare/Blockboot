@@ -1,6 +1,6 @@
 package com.github.blockchain.domain;
 
-import static com.github.blockchain.coin.utility.BitcoinConfiguration.toAddress;
+import static com.github.blockchain.coin.bitcoin.BitcoinConfiguration.toAddress;
 
 import org.bitcoinj.core.Address;
 

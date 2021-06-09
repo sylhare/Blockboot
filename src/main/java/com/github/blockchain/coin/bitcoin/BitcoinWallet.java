@@ -1,8 +1,8 @@
-package com.github.blockchain.coin.utility;
+package com.github.blockchain.coin.bitcoin;
 
-import static com.github.blockchain.coin.utility.BitcoinConfiguration.LOG;
-import static com.github.blockchain.coin.utility.BitcoinConfiguration.networkParameters;
-import static com.github.blockchain.coin.utility.BitcoinConfiguration.scriptType;
+import static com.github.blockchain.coin.bitcoin.BitcoinConfiguration.LOG;
+import static com.github.blockchain.coin.bitcoin.BitcoinConfiguration.networkParameters;
+import static com.github.blockchain.coin.bitcoin.BitcoinConfiguration.scriptType;
 
 import java.util.Objects;
 
