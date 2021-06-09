@@ -1,5 +1,6 @@
 package com.github.blockchain.coin.utility;
 
+import static com.github.blockchain.coin.utility.BitcoinConfiguration.LOG;
 import static com.github.blockchain.coin.utility.BitcoinConfiguration.networkParameters;
 import static com.github.blockchain.coin.utility.BitcoinConfiguration.scriptType;
 
@@ -25,7 +26,7 @@ public class BitcoinWallet {
             final MemoryBlockStore blockStore = new MemoryBlockStore(Objects.requireNonNull(networkParameters));
             return new BlockChain(networkParameters, wallet, blockStore);
         } catch (Exception e) {
-            System.out.println(String.format("Could not create blockchain {}", e));
+            LOG.warn("Could not create blockchain", e);
             return null;
         }
     }
@@ -35,8 +36,8 @@ public class BitcoinWallet {
         String seedCode = Joiner.on(" ").join(Objects.requireNonNull(seed.getMnemonicCode()));
         long creationTime = seed.getCreationTimeSeconds();
 
-        System.out.println("Seed words are: " + seedCode);
-        System.out.println("Seed birthday is: " + creationTime);
+        LOG.info("Seed words are: " + seedCode);
+        LOG.info("Seed birthday is: " + creationTime);
 
         return seed;
     }

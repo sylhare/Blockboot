@@ -21,6 +21,8 @@ repositories {
 
 dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-web'
+    implementation 'ch.qos.logback:logback-classic:1.2.3'
+    implementation 'ch.qos.logback:logback-core:1.2.3'
     implementation 'com.github.dogecoin:libdohj:0.15.9'
     implementation("com.google.guava:guava:30.1.1-jre") // Necessary for bitcoinj
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
