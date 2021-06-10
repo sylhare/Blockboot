@@ -5,9 +5,9 @@ import static com.github.blockchain.coin.bitcoin.BitcoinConfiguration.networkPar
 import static com.github.blockchain.coin.bitcoin.BitcoinConfiguration.scriptType;
 
 import java.io.File;
-import java.util.Objects;
 import java.util.concurrent.TimeUnit;
 
+import org.apache.tomcat.util.buf.StringUtils;
 import org.bitcoinj.core.BlockChain;
 import org.bitcoinj.core.PeerGroup;
 import org.bitcoinj.net.discovery.DnsDiscovery;
@@ -16,8 +16,6 @@ import org.bitcoinj.store.SPVBlockStore;
 import org.bitcoinj.wallet.DeterministicSeed;
 import org.bitcoinj.wallet.Wallet;
 import org.springframework.stereotype.Component;
-
-import com.google.common.base.Joiner;
 
 @Component
 public class BitcoinWallet {
@@ -59,7 +57,7 @@ public class BitcoinWallet {
 
     public static DeterministicSeed walletSeed(Wallet wallet) {
         DeterministicSeed seed = wallet.getKeyChainSeed();
-        String seedCode = Joiner.on(" ").join(Objects.requireNonNull(seed.getMnemonicCode()));
+        String seedCode = StringUtils.join(seed.getMnemonicCode(), ' ');
         long creationTime = seed.getCreationTimeSeconds();
 
         LOG.info("Seed words are: " + seedCode);

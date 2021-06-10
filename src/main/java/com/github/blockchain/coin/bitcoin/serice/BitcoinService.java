@@ -5,7 +5,6 @@ import static com.github.blockchain.coin.bitcoin.BitcoinWallet.createBlockchain;
 import static com.github.blockchain.coin.bitcoin.BitcoinWallet.createPeerGroup;
 import static com.github.blockchain.coin.bitcoin.BitcoinWallet.createWallet;
 
-import java.io.File;
 import java.util.Objects;
 import java.util.concurrent.ExecutionException;
 
@@ -19,7 +18,6 @@ import org.bitcoinj.core.ECKey;
 import org.bitcoinj.core.InsufficientMoneyException;
 import org.bitcoinj.core.PeerGroup;
 import org.bitcoinj.core.Transaction;
-import org.bitcoinj.store.SPVBlockStore;
 import org.bitcoinj.wallet.Wallet;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Profile;
@@ -33,10 +31,9 @@ import com.github.blockchain.domain.TransactionStatus;
 @Profile("bitcoin")
 public class BitcoinService implements CoinService {
 
+    private final Wallet wallet = createWallet();
     @Value("${blockboot.private.key:unknown}")
     private String privateWalletKey;
-
-    private final Wallet wallet = createWallet();
     private BlockChain blockChain;
     private PeerGroup peerGroup;
 

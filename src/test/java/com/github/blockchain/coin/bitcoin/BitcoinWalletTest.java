@@ -12,8 +12,8 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.Objects;
 
+import org.apache.tomcat.util.buf.StringUtils;
 import org.bitcoinj.core.Address;
 import org.bitcoinj.core.BlockChain;
 import org.bitcoinj.core.ECKey;
@@ -23,8 +23,6 @@ import org.bitcoinj.wallet.DeterministicSeed;
 import org.bitcoinj.wallet.UnreadableWalletException;
 import org.bitcoinj.wallet.Wallet;
 import org.junit.jupiter.api.Test;
-
-import com.google.common.base.Joiner;
 
 class BitcoinWalletTest {
 
@@ -40,7 +38,8 @@ class BitcoinWalletTest {
         Wallet wallet = createWallet();
 
         DeterministicSeed seed = walletSeed(wallet);
-        String seedCode = Joiner.on(" ").join(Objects.requireNonNull(seed.getMnemonicCode()));
+        String seedCode = StringUtils.join(seed.getMnemonicCode(), ' ');
+
         long creationTime = seed.getCreationTimeSeconds();
 
         DeterministicSeed recoveredSeed = new DeterministicSeed(seedCode, null, "", creationTime);
