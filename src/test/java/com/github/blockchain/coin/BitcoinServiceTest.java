@@ -1,5 +1,6 @@
 package com.github.blockchain.coin;
 
+import static com.github.blockchain.coin.bitcoin.BitcoinWallet.createWallet;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import org.bitcoinj.core.Coin;
@@ -9,7 +10,7 @@ import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMock
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.ActiveProfiles;
 
-import com.github.blockchain.coin.bitcoin.serice.BitcoinService;
+import com.github.blockchain.coin.bitcoin.service.BitcoinService;
 
 @SpringBootTest
 @ActiveProfiles("bitcoin")
@@ -21,6 +22,6 @@ class BitcoinServiceTest {
 
     @Test
     void contextLoads() {
-        assertEquals(Coin.ZERO, coinService.getBalance());
+        assertEquals(Coin.ZERO, coinService.getBalance(createWallet().currentChangeAddress()));
     }
 }

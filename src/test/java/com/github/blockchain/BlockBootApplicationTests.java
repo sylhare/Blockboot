@@ -26,7 +26,7 @@ import com.github.blockchain.controller.models.BlockSell;
 import com.github.blockchain.domain.TransactionStatus;
 
 @SpringBootTest
-@ActiveProfiles("test")
+@ActiveProfiles("mock")
 @AutoConfigureMockMvc
 class BlockBootApplicationTests {
 
